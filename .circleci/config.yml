@@ -3,16 +3,16 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.12
-    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+    working_directory: /go/src/github.com/nezorflame/speech-recognition-bot
     steps:
       - checkout
-      - run:
-          name: deps
-          command: make deps
       - restore_cache:
           key: go-cache
       - run:
-          name: test
+          name: Check dependencies
+          command: make deps
+      - run:
+          name: Test with coverage
           command: make test-cover
       - save_cache:
           key: go-cache
