@@ -10,3 +10,16 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# vscode and idea folders
+.vscode
+.idea
+
+# ignore binaries and vendoring
+bin
+vendor
+debug
+
+# Unneeded files and folders
+.DS_Store
+coverage.txt
