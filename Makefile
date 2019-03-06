@@ -6,6 +6,9 @@ GIT_TAG:=$(shell git describe --exact-match --abbrev=0 --tags 2> /dev/null)
 APP_VERSION?=$(if $(GIT_TAG),$(GIT_TAG),$(shell git describe --all --long HEAD 2> /dev/null))
 GO_VERSION:=$(shell go version)
 GO_VERSION_SHORT:=$(shell echo $(GO_VERSION)|sed -E 's/.* go(.*) .*/\1/g')
+
+export GO111MODULE=on
+BUILD_ENVPARMS:=CGO_ENABLED=0
 BUILD_TS:=$(shell date +%FT%T%z)
 LDFLAGS:=-X 'github.com/nezorflame/speech-recognition-bot/internal/app.Version=$(APP_VERSION)'\
          -X 'github.com/nezorflame/speech-recognition-bot/internal/app.BuildTS=$(BUILD_TS)'\

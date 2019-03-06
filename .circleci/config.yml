@@ -6,7 +6,16 @@ jobs:
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
-
-      # specify any bash command here prefixed with `run: `
-      - run: make deps
-      - run: make test-cover
+      - run:
+          name: deps
+          command: make deps
+      - restore_cache:
+          key: go-cache
+      - run:
+          name: test
+          command: make test-cover
+      - save_cache:
+          key: go-cache
+          paths:
+            - /go/pkg/mod/cache/download/
+            - /go/bin/
