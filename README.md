@@ -15,7 +15,7 @@ or
 
 `go install github.com/nezorflame/speech-recognition-bot/cmd/speech-client`
 
-Also you can use the build/install targets from `Makefile`.
+Also you can just clone this repo and use the build/install targets from `Makefile`.
 
 ## Client usage
 
