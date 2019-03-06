@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: go-cache
+          key: module-cache-{{ checksum "go.mod" }}
       - run:
           name: Check dependencies
           command: make deps
@@ -15,7 +15,6 @@ jobs:
           name: Test with coverage
           command: make test-cover
       - save_cache:
-          key: go-cache
+          key: module-cache-{{ checksum "go.mod" }}
           paths:
             - /go/pkg/mod/cache/download/
-            - /go/bin/
