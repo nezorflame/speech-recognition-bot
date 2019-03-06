@@ -2,7 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: golang:1.12
+      - image: circleci/golang:1.12
+    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
-      - run: echo "A first hello"
+
+      # specify any bash command here prefixed with `run: `
+      - run: make deps
+      - run: make test-cover
