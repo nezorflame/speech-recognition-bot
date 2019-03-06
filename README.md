@@ -1,4 +1,4 @@
-# speech-recognition-bot
+# speech-recognition-bot [![CircleCI](https://circleci.com/gh/nezorflame/speech-recognition-bot/tree/master.svg?style=svg)](https://circleci.com/gh/nezorflame/speech-recognition-bot/tree/master)
 
 Speech recognition bot for Telegram using [Yandex SpeechKit API](https://github.com/yandex-cloud/docs/blob/master/en/speechkit/stt/index.md) through gRPC.
 
