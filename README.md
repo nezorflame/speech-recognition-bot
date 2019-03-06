@@ -17,6 +17,13 @@ or
 
 Also you can just clone this repo and use the build/install targets from `Makefile`.
 
+## Prerequisits
+
+Make sure you have acquired:
+
+- [OAuth token](https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb)
+- Folder ID (can be found at your [Cloud](https://console.cloud.yandex.ru/folders/) page after you've selected your project (in the form of `https://console.cloud.yandex.ru/folders/YOUR_FOLDER_ID`)
+
 ## Client usage
 
 ```text
