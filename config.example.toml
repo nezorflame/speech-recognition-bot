@@ -1,0 +1,22 @@
+[telegram]
+token = "YOUR:TELEGRAMBOTTOKEN"
+whitelist = [ 1, 2, 3 ]
+timeout = 10
+
+[yandex]
+token = "YOURYANDEXCLOUDTOKEN"
+folder_id = "your_folder_id"
+lang = "en-US"
+
+[commands]
+start = "/start"
+
+[messages]
+hello = "Hello! You can send me the voice file to detect 😄"
+in_progress = "Detecting..."
+
+[errors]
+download = "Unable to download voice file from the chat!"
+failed = "Sorry, I was unable to understand that 😕"
+whitelist = "Sorry, this bot can be used only in the authorized chats!"
+unknown = "Oops! Something bad happened. Please contact the developer!"

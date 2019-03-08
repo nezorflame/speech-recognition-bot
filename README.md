@@ -24,13 +24,28 @@ Make sure you have acquired:
 - [OAuth token](https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb)
 - Folder ID (can be found at your [Cloud](https://console.cloud.yandex.ru/folders/) page after you've selected your project (in the form of `https://console.cloud.yandex.ru/folders/YOUR_FOLDER_ID`)
 
-## Client usage
+## Bot
+
+Located at `cmd/speech-recognizer-bot`.
+Uses config in the TOML format. Example can be found at `config.example.toml`.
+
+Usage:
 
 ```text
--audio-file string
-    Audio file path (for recognition)
--folder-id string
-    Yandex Cloud folder ID
--token string
-    Yandex Cloud OAuth token
+--config string      Config file name (default "config")
+--log-level string   Logrus log level (DEBUG, INFO, WARN, etc.) (default "INFO")
+```
+
+## Client test app
+
+Located at `cmd/speech-client`.
+
+Usage:
+
+```text
+--audio-file string   Audio file path (for recognition)
+--folder-id string    Yandex Cloud folder ID
+--lang string         Language to detect (default "en-US")
+--log-level string    Logrus log level (DEBUG, WARN, etc.) (default "INFO")
+--token string        Yandex Cloud OAuth token
 ```

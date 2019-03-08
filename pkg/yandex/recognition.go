@@ -2,10 +2,8 @@ package yandex
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"path/filepath"
 
 	"github.com/pkg/errors"
@@ -54,22 +52,22 @@ func (rc *RecognitionClient) Close() error {
 }
 
 // SimpleRecognize sends an audiofile to recognize it through Yandex SpeechKit with default parameters
-func (rc *RecognitionClient) SimpleRecognize(filePath string) (string, error) {
-	confReq := rc.NewConfigRequest()
+func (rc *RecognitionClient) SimpleRecognize(filePath, lang string) (string, error) {
+	confReq := rc.NewConfigRequest(lang)
 	if err := rc.Send(confReq); err != nil && err != io.EOF {
-		log.Fatalf("Unable to send config request: %v", err)
+		return "", errors.Wrap(err, "Unable to send config request")
 	}
 
 	contentReq, err := rc.NewAudioRequest(filePath)
 	if err != nil {
-		log.Fatalf("Unable to create the audio request: %v", err)
+		return "", errors.Wrap(err, "Unable to create the audio request")
 	}
 	if err = rc.Send(contentReq); err != nil && err != io.EOF {
-		log.Fatalf("Unable to send audio request: %v", err)
+		return "", errors.Wrap(err, "Unable to send audio request")
 	}
 
 	if err = rc.CloseSend(); err != nil {
-		log.Fatalf("Unable to close recognition sending: %v", err)
+		return "", errors.Wrap(err, "Unable to close recognition sending")
 	}
 
 	sttResp, err := rc.Recv()
@@ -88,12 +86,12 @@ func (rc *RecognitionClient) SimpleRecognize(filePath string) (string, error) {
 }
 
 // NewConfigRequest returns a properly set StreamingRecognitionRequest for config
-func (rc *RecognitionClient) NewConfigRequest() *stt.StreamingRecognitionRequest {
+func (rc *RecognitionClient) NewConfigRequest(lang string) *stt.StreamingRecognitionRequest {
 	return &stt.StreamingRecognitionRequest{StreamingRequest: &stt.StreamingRecognitionRequest_Config{
 		Config: &stt.RecognitionConfig{
 			Specification: &stt.RecognitionSpec{
 				AudioEncoding:  stt.RecognitionSpec_OGG_OPUS,
-				LanguageCode:   "ru-RU",
+				LanguageCode:   lang,
 				PartialResults: false,
 			},
 			FolderId: rc.folder,
@@ -105,7 +103,7 @@ func (rc *RecognitionClient) NewConfigRequest() *stt.StreamingRecognitionRequest
 func (rc *RecognitionClient) NewAudioRequest(audioFilePath string) (*stt.StreamingRecognitionRequest, error) {
 	audioFile, err := ioutil.ReadFile(filepath.Clean(audioFilePath))
 	if err != nil {
-		return nil, fmt.Errorf("unable to open the audio file: %v", err)
+		return nil, errors.Wrap(err, "unable to open the audio file")
 	}
 
 	return &stt.StreamingRecognitionRequest{
