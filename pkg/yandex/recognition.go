@@ -70,19 +70,25 @@ func (rc *RecognitionClient) SimpleRecognize(filePath, lang string) (string, err
 		return "", errors.Wrap(err, "Unable to close recognition sending")
 	}
 
-	sttResp, err := rc.Recv()
+	sttResponses, err := rc.RecvAll()
 	if err != nil {
 		return "", errors.Wrap(err, "unable to receive recognition response")
 	}
 
-	for _, c := range sttResp.GetChunks() {
-		if c.GetFinal() {
-			alt := c.GetAlternatives()
-			return alt[0].GetText(), nil
+	result := ""
+	for _, resp := range sttResponses {
+		for _, c := range resp.GetChunks() {
+			if c.GetFinal() {
+				alt := c.GetAlternatives()
+				result += alt[0].GetText() + " "
+			}
 		}
 	}
 
-	return "", errors.New("no final result was found")
+	if result == "" {
+		return "", errors.New("no final result was found")
+	}
+	return result[:len(result)-1], nil
 }
 
 // NewConfigRequest returns a properly set StreamingRecognitionRequest for config
@@ -124,4 +130,20 @@ func (rc *RecognitionClient) CloseSend() error {
 // Recv wraps SttService_StreamingRecognizeClient.Recv
 func (rc *RecognitionClient) Recv() (*stt.StreamingRecognitionResponse, error) {
 	return rc.stt.Recv()
+}
+
+// RecvAll accumulates all responses from the RecognitionClient
+func (rc *RecognitionClient) RecvAll() ([]*stt.StreamingRecognitionResponse, error) {
+	result := make([]*stt.StreamingRecognitionResponse, 0)
+	for {
+		resp, err := rc.Recv()
+		switch err {
+		case nil:
+			result = append(result, resp)
+		case io.EOF:
+			return result, nil
+		default:
+			return nil, err
+		}
+	}
 }
