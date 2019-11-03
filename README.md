@@ -1,4 +1,5 @@
 # speech-recognition-bot [![CircleCI](https://circleci.com/gh/nezorflame/speech-recognition-bot/tree/master.svg?style=svg)](https://circleci.com/gh/nezorflame/speech-recognition-bot/tree/master) [![Go Report Card](https://goreportcard.com/badge/github.com/nezorflame/speech-recognition-bot)](https://goreportcard.com/report/github.com/nezorflame/speech-recognition-bot) [![GolangCI](https://golangci.com/badges/github.com/nezorflame/speech-recognition-bot.svg)](https://golangci.com/r/github.com/nezorflame/speech-recognition-bot)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnezorflame%2Fspeech-recognition-bot.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnezorflame%2Fspeech-recognition-bot?ref=badge_shield)
 
 Speech recognition bot for Telegram using [Yandex SpeechKit API](https://github.com/yandex-cloud/docs/blob/master/en/speechkit/stt/index.md) through gRPC.
 
@@ -49,3 +50,7 @@ Usage:
 --log-level string    Logrus log level (DEBUG, WARN, etc.) (default "INFO")
 --token string        Yandex Cloud OAuth token
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnezorflame%2Fspeech-recognition-bot.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnezorflame%2Fspeech-recognition-bot?ref=badge_large)
